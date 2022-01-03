@@ -4,12 +4,12 @@
 #define _string_included
 
 /**
- * @global Unless otherwise noted, all string functions which take in a 
+ * @global Unless otherwise noted, all string functions which take in a
  * writable buffer and maximum length should have the null terminator INCLUDED
- * in the length.  This means that this is valid: 
+ * in the length.  This means that this is valid:
  * strcopy(string, sizeof(string), ...)
  */
- 
+
 /**
  * Calculates the length of a string.
  *
@@ -19,7 +19,7 @@
 stock int strlen(const char[] str)
 {
     int i = 0;
-    while(true)
+    for(;;)
     {
         if (str[i] == '\x0')
         {
@@ -183,7 +183,7 @@ stock bool StrEqual(const char[] str1, const char[] str2, bool caseSensitive=tru
 
 /**
  * Copies one string to another string.
- * @note If the destination buffer is too small to hold the source string, the 
+ * @note If the destination buffer is too small to hold the source string, the
  *       destination will be truncated.
  *
  * @param dest          Destination string buffer to copy to.
@@ -234,8 +234,8 @@ stock int StrCopy(char[] dest, int destLen, const char[] source)
 
 /**
  * Formats a string according to the SourceMod format rules (see documentation).
- * @note This is the same as Format(), except none of the input buffers can 
- *       overlap the same memory as the output buffer.  Since this security 
+ * @note This is the same as Format(), except none of the input buffers can
+ *       overlap the same memory as the output buffer.  Since this security
  *       check is removed, it is slightly faster.
  *
  * @param buffer        Destination string buffer.
@@ -248,8 +248,8 @@ stock int StrCopy(char[] dest, int destLen, const char[] source)
 
 /**
  * Formats a string according to the SourceMod format rules (see documentation).
- * @note This is the same as Format(), except it grabs parameters from a 
- *       parent parameter stack, rather than a local.  This is useful for 
+ * @note This is the same as Format(), except it grabs parameters from a
+ *       parent parameter stack, rather than a local.  This is useful for
  *       implementing your own variable argument functions.
  *
  * @param buffer        Destination string buffer.
@@ -290,7 +290,7 @@ stock int StrCopy(char[] dest, int destLen, const char[] source)
  */
 //stock int IntToString(int num, char[] str, int maxlength);
 
-/** 
+/**
  * Converts a string to a floating point number.
  *
  * @param str           String to convert to a float.
@@ -298,7 +298,7 @@ stock int StrCopy(char[] dest, int destLen, const char[] source)
  */
 //stock float StringToFloat(const char[] str);
 
-/** 
+/**
  * Converts a string to a floating point number with some more options.
  *
  * @param str           String to convert to a float.
@@ -319,7 +319,7 @@ stock int StrCopy(char[] dest, int destLen, const char[] source)
 
 /**
  * Finds the first "argument" in a string; either a set of space
- * terminated characters, or a fully quoted string.  After the 
+ * terminated characters, or a fully quoted string.  After the
  * argument is found, whitespace is read until the next portion
  * of the string is reached.  If nothing remains, -1 is returned.
  * Otherwise, the index to the first character is returned.
@@ -365,7 +365,7 @@ stock int StrBreak(const char[] source, char[] arg, int argLen)
 //stock int SplitString(const char[] source, const char[] split, char[] part, int partLen);
 
 /**
- * Given a string, replaces all occurrences of a search string with a 
+ * Given a string, replaces all occurrences of a search string with a
  * replacement string.
  *
  * @param text          String to perform search and replacements on.
@@ -378,7 +378,7 @@ stock int StrBreak(const char[] source, char[] arg, int argLen)
 //stock int ReplaceString(char[] text, int maxlength, const char[] search, const char[] replace, bool caseSensitive=true);
 
 /**
- * Given a string, replaces the first occurrence of a search string with a 
+ * Given a string, replaces the first occurrence of a search string with a
  * replacement string.
  *
  * @param text          String to perform search and replacements on.
@@ -396,7 +396,7 @@ stock int StrBreak(const char[] source, char[] arg, int argLen)
  */
 //stock int ReplaceStringEx(char[] text, int maxlength, const char[] search, const char[] replace, int searchLen=-1, int replaceLen=-1, bool caseSensitive=true);
 
-/** 
+/**
  * Returns the number of bytes a character is using.  This is
  * for multi-byte characters (UTF-8).  For normal ASCII characters,
  * this will return 1.
@@ -490,15 +490,15 @@ stock bool IsCharLower(int chr)
 }
 
 /**
- * Strips a quote pair off a string if it exists.  That is, the following 
+ * Strips a quote pair off a string if it exists.  That is, the following
  * replace rule is applied once:  ^"(.*)"$ -> ^\1$
  *
- * Note that the leading and trailing quotes will only be removed if both 
- * exist.  Otherwise, the string is left unmodified.  This function should 
+ * Note that the leading and trailing quotes will only be removed if both
+ * exist.  Otherwise, the string is left unmodified.  This function should
  * be considered O(k) (all characters get shifted down).
  *
  * @param text          String to modify (in place).
- * @return              True if string was modified, false if there was no 
+ * @return              True if string was modified, false if there was no
  *                      set of quotes.
  */
 //stock bool StripQuotes(char[] text);
@@ -507,7 +507,7 @@ stock bool IsCharLower(int chr)
  * Converts a lowercase character to its uppercase counterpart.
  *
  * @param chr           Character to convert.
- * @return              Uppercase character on success, 
+ * @return              Uppercase character on success,
  *                      no change on failure.
  */
 stock int CharToUpper(int chr)
@@ -524,7 +524,7 @@ stock int CharToUpper(int chr)
  * Converts an uppercase character to its lowercase counterpart.
  *
  * @param chr           Character to convert.
- * @return              Lowercase character on success, 
+ * @return              Lowercase character on success,
  *                      no change on failure.
  */
 stock int CharToLower(int chr)
@@ -533,7 +533,7 @@ stock int CharToLower(int chr)
 	{
 		return (chr | (1<<5));
 	}
-	
+
 	return chr;
 }
 
@@ -542,15 +542,15 @@ stock int CharToLower(int chr)
  *
  * @param str           String.
  * @param c             Character to search for.
- * @param reverse       False (default) to search forward, true to search 
+ * @param reverse       False (default) to search forward, true to search
  *                      backward.
- * @return              The index of the first occurrence of the character 
+ * @return              The index of the first occurrence of the character
  *                      in the string, or -1 if the character was not found.
  */
 stock int FindCharInString(const char[] str, char c, bool reverse = false)
 {
 	int len = strlen(str);
-	
+
 	if (!reverse)
 	{
 		for (int i = 0; i < len; i++)
@@ -591,7 +591,7 @@ stock int StrCat(char[] buffer, int maxlength, const char[] source)
 	{
 		return 0;
 	}
-	
+
 	return Format(buffer[len], maxlength-len, "%s", source);
 }
 */
