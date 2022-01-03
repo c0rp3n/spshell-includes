@@ -62,7 +62,7 @@ stock int strcmp(const char[] str1, const char[] str2, bool caseSensitive=true)
         {
             if (str1[i] != str2[i])
             {
-                return 0;
+                break;
             }
 
             ++i;
@@ -178,7 +178,7 @@ stock int StrCompare(const char[] str1, const char[] str2, bool caseSensitive=tr
  */
 stock bool StrEqual(const char[] str1, const char[] str2, bool caseSensitive=true)
 {
-	return (strcmp(str1, str2, caseSensitive) == 0);
+	return strcmp(str1, str2, caseSensitive) == 0;
 }
 
 /**
